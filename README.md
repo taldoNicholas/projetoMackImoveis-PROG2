@@ -141,7 +141,20 @@ O sistema foi desenvolvido utilizando **Spring Boot** no backend com **PostgreSQ
 
 
 📁 Estrutura do Projeto
-trabalho-java-mackImoveis/├── src/│   ├── main/│   │   ├── java/com/mackimoveis/vfinal/│   │   │   ├── controller/      # Controllers REST│   │   │   ├── model/           # Entidades JPA│   │   │   ├── repository/      # Repositórios Spring Data│   │   │   └── FinalApplication.java│   │   └── resources/│   │       ├── static/         # Frontend (HTML, CSS, JS)│   │       └── application.properties│   └── test/                   # Testes├── uploads/                     # Arquivos de upload└── pom.xml                      # Dependências Maven
+trabalho-java-mackImoveis/
+├── src/
+│   ├── main/
+│   │   ├── java/com/mackimoveis/vfinal/
+│   │   │   ├── controller/      # Controllers REST
+│   │   │   ├── model/           # Entidades JPA
+│   │   │   ├── repository/      # Repositórios Spring Data
+│   │   │   └── FinalApplication.java
+│   │   └── resources/
+│   │       ├── static/         # Frontend (HTML, CSS, JS)
+│   │       └── application.properties
+│   └── test/                   # Testes
+├── uploads/                     # Arquivos de upload
+└── pom.xml                      # Dependências Maven
 🔒 Segurança
 Senhas criptografadas com SHA-256
 Validação de permissões por perfil
