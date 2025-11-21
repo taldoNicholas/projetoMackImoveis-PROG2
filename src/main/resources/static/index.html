@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MackImóveis - Sistema de Aluguel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
+    <div id="tela-login" class="container">
+        <img class="logo" src="https://i.imgur.com/AvDv1cw.png" alt="Logo MackImóveis" class="logo"/>
+        <h2>Sistema de Aluguel</h2>
+        
+        <div id="form-login" class="form-container">
+            <h3>Login</h3>
+            <form id="form-login-unificado">
+                <input type="email" id="email-login" placeholder="Email" required maxlength="255">
+                <input type="password" id="senha-login" placeholder="Senha" required minlength="6">
+                <button type="submit" class="btn-primary">Entrar</button>
+                <button type="button" id="btn-mostrar-cadastro" class="btn-link">Não tem conta? Cadastre-se</button>
+            </form>
+        </div>
+        
+        <div id="form-cadastro" class="form-container hidden">
+            <h3>Cadastro</h3>
+            <form id="form-cadastro-unificado">
+                <input type="text" id="nome-cadastro" placeholder="Nome" required minlength="2" maxlength="100">
+                <input type="email" id="email-cadastro" placeholder="Email" required maxlength="255">
+                <input type="password" id="senha-cadastro" placeholder="Senha (mín. 6 caracteres)" required minlength="6">
+                
+                <div class="selecao-tipo-perfil">
+                    <label>Escolha seu perfil:</label>
+                    <div class="opcoes-perfil-cadastro">
+                        <label class="opcao-perfil">
+                            <input type="radio" name="tipo-perfil" value="proprietario" required>
+                            <span> Proprietário</span>
+                        </label>
+                        <label class="opcao-perfil">
+                            <input type="radio" name="tipo-perfil" value="inquilino" required>
+                            <span> Inquilino</span>
+                        </label>
+                        <label class="opcao-perfil">
+                            <input type="radio" name="tipo-perfil" value="ambos" required>
+                            <span> Ambos</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">Cadastrar</button>
+                <button type="button" id="btn-voltar-login" class="btn-link">Voltar ao login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard" class="container hidden">
+        <div class="dashboard-header">
+            <div class="spacer">
+                <img class="logo" src="https://i.imgur.com/AvDv1cw.png" alt="Logo MackImóveis" class="logo"/>
+
+            </div>
+            <div class="user-info">
+                <span id="nome-usuario"></span>
+                <button id="btn-trocar-perfil" class="btn-secondary hidden">Trocar Perfil</button>
+                <button id="btn-logout" class="btn-secondary">Sair</button>
+            </div>
+        </div>
+        
+        <div class="dashboard-content">
+            <div id="selecao-perfil" class="selecao-perfil-container hidden">
+                <h2>Escolha seu perfil</h2>
+                <p>Selecione como deseja acessar o sistema:</p>
+                <div class="perfis-opcoes">
+                    <button id="btn-escolher-proprietario" class="perfil-card">
+                        <h3> Proprietário</h3>
+                        <p>Cadastrar propriedades, visualizar detalhes e verificar propriedades alugadas</p>
+                    </button>
+                    <button id="btn-escolher-inquilino" class="perfil-card">
+                        <h3> Inquilino</h3>
+                        <p>Consultar propriedades disponíveis e fazer reservas</p>
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-acoes">
+                <div id="menu-proprietario" class="menu-section hidden">
+                    <h3>Área do Proprietário</h3>
+                    <button id="btn-cadastrar-propriedade" class="btn">Cadastrar Propriedade</button>
+                    <button id="btn-listar-propriedades" class="btn">Minhas Propriedades</button>
+                    <button id="btn-propriedades-alugadas" class="btn">Propriedades Alugadas</button>
+                </div>
+                
+                <div id="menu-inquilino" class="menu-section hidden">
+                    <h3>Área do Inquilino</h3>
+                    <button id="btn-buscar-propriedades" class="btn">Buscar Propriedades</button>
+                    <button id="btn-minhas-reservas" class="btn">Minhas Reservas</button>
+                </div>
+            </div>
+            
+            <div class="conteudo-dinamico">
+                <div id="form-cadastro-propriedade" class="form-container hidden">
+                    <h3>Cadastrar Nova Propriedade</h3>
+                    <form id="form-nova-propriedade">
+                        <input type="text" id="titulo-propriedade" placeholder="Título" required minlength="3" maxlength="200">
+                        <textarea id="descricao-propriedade" placeholder="Descrição" required minlength="10" maxlength="2000"></textarea>
+                        <input type="text" id="localizacao-propriedade" placeholder="Localização" required maxlength="200">
+                        <input type="number" id="capacidade-propriedade" placeholder="Capacidade" min="1" required>
+                        <input type="text" id="preco-propriedade" placeholder="R$ 0,00" required>
+                        
+                        <div class="upload-section">
+                            <label for="fotos-propriedade-input">Fotos da Propriedade:</label>
+                            <input type="file" id="fotos-propriedade-input" multiple accept="image/*">
+                            <div id="preview-fotos" class="fotos-preview"></div>
+                            <div id="fotos-urls" class="hidden"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Cadastrar</button>
+                        <button type="button" id="btn-cancelar-propriedade" class="btn-secondary">Cancelar</button>
+                    </form>
+                </div>
+
+                <div id="form-edicao-propriedade" class="form-container hidden">
+                    <h3>Editar Propriedade</h3>
+                    <form id="form-editar-propriedade">
+                        <input type="text" id="titulo-propriedade-edit" placeholder="Título" required minlength="3" maxlength="200">
+                        <textarea id="descricao-propriedade-edit" placeholder="Descrição" required minlength="10" maxlength="2000"></textarea>
+                        <input type="text" id="localizacao-propriedade-edit" placeholder="Localização" required maxlength="200">
+                        <input type="number" id="capacidade-propriedade-edit" placeholder="Capacidade" min="1" required>
+                        <input type="text" id="preco-propriedade-edit" placeholder="R$ 0,00" required>
+                        
+                        <div class="upload-section">
+                            <label for="fotos-propriedade-input-edit">Fotos da Propriedade:</label>
+                            <input type="file" id="fotos-propriedade-input-edit" multiple accept="image/*">
+                            <div id="preview-fotos-edit" class="fotos-preview"></div>
+                            <div id="fotos-urls-edit" class="hidden"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                        <button type="button" id="btn-cancelar-edicao-propriedade" class="btn-secondary">Cancelar</button>
+                    </form>
+                </div>
+
+                <div id="lista-propriedades-proprietario" class="hidden">
+                    <h3>Minhas Propriedades</h3>
+                    <div id="propriedades-container-proprietario"></div>
+                </div>
+
+                <div id="busca-propriedades" class="hidden">
+                    <h3>Propriedades Disponíveis</h3>
+                    <div id="propriedades-container-usuario"></div>
+                </div>
+
+                <div id="form-reserva" class="form-container hidden">
+                    <h3>Fazer Reserva</h3>
+                    <div id="detalhes-propriedade-reserva"></div>
+                    <form id="form-nova-reserva">
+                        <input type="date" id="data-checkin-reserva" required>
+                        <input type="date" id="data-checkout-reserva" required>
+                        <div id="custo-total-reserva"></div>
+                        <button type="submit" class="btn-primary">Confirmar Reserva</button>
+                        <button type="button" id="btn-cancelar-reserva" class="btn-secondary">Cancelar</button>
+                    </form>
+                </div>
+
+                <div id="minhas-reservas" class="hidden">
+                    <h3>Minhas Reservas</h3>
+                    <div id="reservas-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cancelar" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Confirmar Cancelamento</h3>
+                <button class="modal-close" onclick="fecharModalCancelar()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja cancelar esta reserva?</p>
+                <p class="modal-warning">Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="fecharModalCancelar()" class="btn-cancelar">Não, manter reserva</button>
+                <button onclick="confirmarCancelamento()" class="btn-confirmar">Sim, cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-deletar-propriedade" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Confirmar Remoção</h3>
+                <button class="modal-close" onclick="fecharModalDeletarPropriedade()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja remover esta propriedade?</p>
+                <p class="modal-warning">Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="fecharModalDeletarPropriedade()" class="btn-cancelar">Não, manter propriedade</button>
+                <button onclick="confirmarDeletarPropriedade()" class="btn-confirmar">Sim, remover</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="mensagem" class="mensagem hidden"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/validations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
