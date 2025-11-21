@@ -138,25 +138,3 @@ O sistema foi desenvolvido utilizando **Spring Boot** no backend com **PostgreSQ
 * ✅ **Delete**: Cancelamento de reservas
 
 ---
-
-
-📁 Estrutura do Projeto
-trabalho-java-mackImoveis/
-├── src/
-│   ├── main/
-│   │   ├── java/com/mackimoveis/vfinal/
-│   │   │   ├── controller/      # Controllers REST
-│   │   │   ├── model/           # Entidades JPA
-│   │   │   ├── repository/      # Repositórios Spring Data
-│   │   │   └── FinalApplication.java
-│   │   └── resources/
-│   │       ├── static/         # Frontend (HTML, CSS, JS)
-│   │       └── application.properties
-│   └── test/                   # Testes
-├── uploads/                     # Arquivos de upload
-└── pom.xml                      # Dependências Maven
-🔒 Segurança
-Senhas criptografadas com SHA-256
-Validação de permissões por perfil
-Validação de propriedade de recursos (proprietário só edita suas propriedades)
-Validação de dados de entrada com Bean Validation
